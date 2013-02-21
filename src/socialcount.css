@@ -100,18 +100,22 @@
 	margin-left: 0;
 }
 
-.socialcount .facebook iframe {
-	height: 21px;
-	width: 90px; /* recommend */
+.socialcount .facebook iframe,
+.socialcount .facebook .button span {
+	height: 21px !important;
+	width: 90px !important; /* recommend */
 }
-.socialcount.de_DE .facebook iframe {
-	width: 78px; /* recommend */
+.socialcount.de_DE .facebook iframe,
+.socialcount.de_DE .facebook .button span {
+	width: 78px !important; /* recommend */
 }
-.socialcount.like .facebook iframe {
-	width: 48px; /* like */
+.socialcount.like .facebook iframe,
+.socialcount.like .facebook .button span {
+	width: 48px !important; /* like */
 }
-.socialcount.like.de_DE .facebook iframe {
-	width: 75px; /* like */
+.socialcount.like.de_DE .facebook iframe,
+.socialcount.like.de_DE .facebook .button span {
+	width: 75px !important; /* like */
 }
 
 .socialcount .button {
