@@ -293,10 +293,8 @@
 				var shareText = SocialCount.getShareText( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
-						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
-						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
-						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
+						'<div class="fb-like" data-href="' + encodeURI( url ) + '" data-send="false" data-layout="button_count" data-width="100" data-show-faces="true" data-font="arial" data-colorscheme="light" data-action="' + facebookAction + '"></div>',
+						'//connect.facebook.net/en_US/all.js#xfbml=1' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
@@ -319,6 +317,8 @@
 	};
 
 	$(function() {
+		$("body").append('<div id="fb-root"></div>');
+
 		// Thanks to http://codepen.io/ericmatthys/pen/FfcEL
 		$loadingIndicator = $('<div>')
 			.addClass('loading')
