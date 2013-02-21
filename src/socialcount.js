@@ -206,7 +206,7 @@
 			return count;
 		},
 		bindEvents: function( $el, url, facebookAction, isSmall ) {
-			function bind( $a, html, jsUrl ) {
+			function bind( $a, html, jsUrl, completeEvent ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
 				var isTooltipActive = false,
 					isHoverActive = false;
@@ -259,6 +259,7 @@
 						if( $iframe.length ) {
 							$iframe.bind( 'load', function() {
 								$loading.remove();
+								if (completeEvent) $(window).trigger(completeEvent);
 							});
 						} else {
 							$loading.remove();
@@ -305,7 +306,8 @@
 						' data-url="' + encodeURI( url ) + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',
-					'//platform.twitter.com/widgets.js' );
+					'//platform.twitter.com/widgets.js',
+					'twitterloaded' );
 
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
