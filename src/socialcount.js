@@ -259,7 +259,9 @@
 						if( $iframe.length ) {
 							$iframe.bind( 'load', function() {
 								$loading.remove();
-								if (completeEvent) $(window).trigger(completeEvent);
+								if (completeEvent) {
+									$(window).trigger(completeEvent);
+								}
 							});
 						} else {
 							$loading.remove();
