@@ -90,6 +90,9 @@
 		getUrl: function( $el ) {
 			return $el.attr('data-url') || location.href;
 		},
+		getFacebookAppId: function( $el ) {
+			return $el.attr('data-facebook-appId');
+		},
 		// Currently only available on Twitter
 		getShareText: function( $el ) {
 			return $el.attr('data-share-text' ) || '';
@@ -290,11 +293,12 @@
 			} // end bind()
 
 			if( !isSmall ) {
-				var shareText = SocialCount.getShareText( $el );
+				var shareText = SocialCount.getShareText( $el ),
+				fbAppId = SocialCount.getFacebookAppId( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
 						'<div class="fb-like" data-href="' + encodeURI( url ) + '" data-send="false" data-layout="button_count" data-width="100" data-show-faces="true" data-font="arial" data-colorscheme="light" data-action="' + facebookAction + '"></div>',
-						'//connect.facebook.net/en_US/all.js#xfbml=1' );
+						'//connect.facebook.net/en_US/all.js#xfbml=1' + ( fbAppId ? '&appId=' + fbAppId : '') );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
