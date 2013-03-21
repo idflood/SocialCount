@@ -67,7 +67,11 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
-		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
+		// If locale is not defined fb autodect the browser language. This can cause issue for styling.
+		// force to english by default to have the correct button width
+		localeFacebook: 'en_US',
+		localeGoogle: 'en-US',
+		localeClass: 'en_US',
 		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
@@ -154,6 +158,17 @@
 				initPlugins = SocialCount.plugins.init,
 				countsEnabled = SocialCount.isCountsEnabled( $el );
 
+			// Autodectect locale if SocialLocale is available
+			if (win.SocialLocale) {
+				var html_locale = doc.documentElement ? ( doc.documentElement.lang || false ) : false;
+				if (html_locale) {
+					// Get the correct locale but keep old one if it isn't available
+					SocialCount.localeFacebook = win.SocialLocale.toFacebookLocale(html_locale) || SocialCount.localeFacebook;
+					SocialCount.localeGoogle = win.SocialLocale.toGoogleLocale(html_locale) || SocialCount.localeGoogle;
+					SocialCount.localeClass = win.SocialLocale.toClassLocale(html_locale) || SocialCount.localeClass;
+				}
+			}
+
 			if( SocialCount.isGradeA ) {
 				classes.push( SocialCount.classes.gradeA );
 			}
@@ -168,9 +183,9 @@
 			} else {
 				classes.push( SocialCount.classes.activateOnHover );
 			}
-			if( SocialCount.locale ) {
-				classes.push( SocialCount.locale );
-			}
+
+			classes.push( SocialCount.localeClass );
+
 			$el.addClass( classes.join(' ') );
 
 			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
@@ -294,7 +309,7 @@
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
 					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent( url ) +
-						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
+						( SocialCount.locale ? '&locale=' + SocialCount.localeFacebook : '' ) +
 						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
@@ -306,7 +321,7 @@
 					'//platform.twitter.com/widgets.js' );
 
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
-					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
+					'<div class="g-plusone" data-size="medium" data-annotation="none" data-lang="' + SocialCount.localeGoogle + '"></div>',
 					'//apis.google.com/js/plusone.js' );
 			}
 
