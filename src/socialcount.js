@@ -71,6 +71,7 @@
 		// force to english by default to have the correct button width
 		localeFacebook: 'en_US',
 		localeGoogle: 'en-US',
+		localeTwitter: 'en',
 		localeClass: 'en_US',
 		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
@@ -165,9 +166,13 @@
 					// Get the correct locale but keep old one if it isn't available
 					SocialCount.localeFacebook = win.SocialLocale.toFacebookLocale(html_locale) || SocialCount.localeFacebook;
 					SocialCount.localeGoogle = win.SocialLocale.toGoogleLocale(html_locale) || SocialCount.localeGoogle;
+					SocialCount.localeTwitter = win.SocialLocale.toTwitterLocale(html_locale) || SocialCount.localeTwitter;
 					SocialCount.localeClass = win.SocialLocale.toClassLocale(html_locale) || SocialCount.localeClass;
 				}
 			}
+
+			// Set googleplus language
+			window.___gcfg = {lang: SocialCount.localeGoogle};
 
 			if( SocialCount.isGradeA ) {
 				classes.push( SocialCount.classes.gradeA );
@@ -308,8 +313,7 @@
 				var shareText = SocialCount.getShareText( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent( url ) +
-						( SocialCount.locale ? '&locale=' + SocialCount.localeFacebook : '' ) +
+					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent( url ) + '&locale=' + SocialCount.localeFacebook +
 						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
@@ -317,11 +321,11 @@
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
 						' data-url="' + encodeURIComponent( url ) + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
-						' data-count="none" data-dnt="true">Tweet</a>',
+						' data-count="none" data-dnt="true" data-lang="' + SocialCount.localeTwitter + '">Tweet</a>',
 					'//platform.twitter.com/widgets.js' );
 
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
-					'<div class="g-plusone" data-size="medium" data-annotation="none" data-lang="' + SocialCount.localeGoogle + '"></div>',
+					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
 					'//apis.google.com/js/plusone.js' );
 			}
 

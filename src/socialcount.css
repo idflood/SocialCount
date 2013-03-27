@@ -105,13 +105,22 @@
 	width: 90px; /* recommend */
 }
 .socialcount.de_DE .facebook iframe {
-	width: 78px; /* recommend */
+	width: 85px; /* recommend */
+}
+.socialcount.fr_FR .facebook iframe {
+	width: 104px; /* recommend */
 }
 .socialcount.like .facebook iframe {
 	width: 48px; /* like */
 }
+.socialcount.like.de_DE .facebook {
+	width: 91px; /* like */
+}
 .socialcount.like.de_DE .facebook iframe {
-	width: 75px; /* like */
+	width: 84px; /* like */
+}
+.socialcount.like.fr_FR .facebook iframe {
+	width: 60px; /* like */
 }
 
 .socialcount .button {
